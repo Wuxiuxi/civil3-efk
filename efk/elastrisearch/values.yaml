@@ -21,8 +21,8 @@ roles:
   - remote_cluster_client
   - transform
 
-replicas: 1
-minimumMasterNodes: 1
+replicas: 1 ###修改单点
+minimumMasterNodes: 1 ###修改单点
 
 esMajorVersion: ""
 
