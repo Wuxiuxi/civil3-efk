@@ -20,44 +20,7 @@ tar -zvf elasticsearch
 
 + 安装filebeat
    helm pull elastic/filebeat
-   tar -zvf filebeat
-
-+ 修改配置vi values.yaml
-  filebeatConfig:
-  filebeat.yml: |
-    filebeat.config:
-       modules:
-         path: ${path.config}/modules.d/*.yml
-         reload.enabled: true
-    filebeat.autodiscover:
-      providers:
-        - type: kubernetes
-          hints.enabled: true
-          templates:
-            - condition:
-                equals:
-                  # 堆栈对行日志出现的名称空间为baas
-                  kubernetes.namespace: baas
-              config:
-                - type: docker
-                  containers.ids:
-                    - "${data.kubernetes.container.id}"
-                  # 配置堆栈多行匹配规则
-                  multiline:
-                    pattern: '^[[:space:]]+(at|\.{3})\b|^Caused by:'
-                    negate: false
-                    match: after
-            - condition:
-                equals:
-                  kubernetes.namespace: kube-system
-              config:
-                - type: docker
-                  containers.ids:
-                    - "${data.kubernetes.container.id}"
-    output.elasticsearch:
-      host: '${NODE_NAME}'
-      hosts: '${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}'
-  
+   tar -zvf filebeat  
   + helm install   filebeat   filebeat --namespace efk  
 
    + 安装kibana
