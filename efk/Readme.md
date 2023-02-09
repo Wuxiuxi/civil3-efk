@@ -22,8 +22,8 @@ tar -zvf elasticsearch
    helm pull elastic/filebeat
    tar -zvf filebeat
 
-   修改配置vi values.yaml
-   filebeatConfig:
++ 修改配置vi values.yaml
+  filebeatConfig:
   filebeat.yml: |
     filebeat.config:
        modules:
